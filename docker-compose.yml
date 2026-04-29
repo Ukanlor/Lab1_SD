@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  generador_respuestas:
+    build: ./generador_respuestas
+    container_name: generador_respuestas
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+
+  servicio_metricas:
+    build: ./servicio_metricas
+    container_name: servicio_metricas
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8002
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./servicio_metricas:/app
+
+  redis_cache:
+    image: redis:latest
+    container_name: redis_cache
+    # Cambiar los parámetros para el informe
+    command: redis-server --maxmemory 50mb --maxmemory-policy allkeys-random
+    ports:
+      - "6379:6379"
+
+  servicio_cache:
+    build: ./servicio_cache
+    container_name: servicio_cache
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis_cache
+      - generador_respuestas
+      - servicio_metricas
