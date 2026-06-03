@@ -538,20 +538,3 @@ El sistema implementa:
 * Medición de backlog mediante LAG.
 * Registro de métricas experimentales.
 * Generación de gráficos comparativos.
-
----
-
-Antes de subirlo, cambia el archivo `README.md` por este contenido y luego haz:
-
-git add README.md
-git commit -m "Actualiza README para Tarea 2 con Kafka, retry y DLQ"
-git push
-
-
-Y revisa que en `docker-compose.yml` hayas vuelto a dejar:
-
-FAIL_RATE: "0.0"
-MAX_RETRIES: "3"
-
-
-para que el repo quede en modo normal, no en modo DLQ forzada.
