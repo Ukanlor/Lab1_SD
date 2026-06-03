@@ -539,8 +539,6 @@ El sistema implementa:
 * Registro de métricas experimentales.
 * Generación de gráficos comparativos.
 
-````
-
 ---
 
 Antes de subirlo, cambia el archivo `README.md` por este contenido y luego haz:
